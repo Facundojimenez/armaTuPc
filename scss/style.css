@@ -1,0 +1,38 @@
+h1 {
+  color: blue;
+}
+
+header {
+  background: lightgray;
+}
+
+.banner, .bannerBienvenida {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+}
+
+.bannerBienvenida {
+  background-color: pink;
+  height: 40vh;
+}
+
+footer {
+  background: lightblue;
+  background-color: lightskyblue;
+  height: 15vh;
+}
+
+/** Cambios en los estilos originales de bootstrap*/
+/*# sourceMappingURL=style.css.map */

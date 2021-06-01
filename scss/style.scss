@@ -1,0 +1,29 @@
+h1{
+    color: blue;
+}
+
+header{
+    background: lightgray;
+}
+
+.banner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.bannerBienvenida{
+    @extend .banner;
+    background-color: pink;
+    height: 40vh;
+}
+
+footer{
+    background: lightblue;
+    background-color: lightskyblue;
+    height: 15vh;
+}
+
+/** Cambios en los estilos originales de bootstrap*/
