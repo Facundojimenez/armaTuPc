@@ -10818,14 +10818,43 @@ a.text-dark:hover, a.text-dark:focus {
   }
 }
 
+/* colores */
+/* estilo de los elementos HTML */
 h1 {
-  color: blue;
+  padding: 1.5rem 0;
+  font-size: 2.2rem;
+}
+
+@media screen and (min-width: 720px) {
+  h1 {
+    font-size: 4rem;
+  }
 }
 
 header {
   background: lightgray;
 }
 
+footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 15vh;
+  background-color: black;
+  color: white;
+}
+
+/*Estilo banners */
 .banner, .bannerBienvenida {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -10841,6 +10870,7 @@ header {
       -ms-flex-pack: center;
           justify-content: center;
   background-size: cover;
+  padding: 1.5rem;
   width: 100%;
 }
 
@@ -10860,13 +10890,107 @@ header {
   height: 50vh;
 }
 
-footer {
-  background-color: lightskyblue;
-  height: 15vh;
+/* formas de envio */
+.formasEnvioContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  background-color: lightgrey;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 30vh;
 }
 
-/** estilo de texto*/
+.infoContainer {
+  /*   background-color: lightgrey;*/
+}
+
+.infoItem {
+  /*    border: 1px solid black;*/
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 1rem;
+  border-bottom: 2px solid grey;
+}
+
+.infoItem img {
+  width: 8rem;
+}
+
+.infoItem div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.infoItem div h4 {
+  font-size: 1.2rem;
+}
+
+.infoItem div h5 {
+  font-size: 1rem;
+}
+
+/* Estilo del resumen de la compra */
+.resumenCompra {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 500px;
+  width: 100%;
+  background-color: #aab8ff;
+}
+
+/* estilo de texto*/
 .precio {
   font-size: 1.8rem;
+}
+
+/* estilo de cartas */
+.amd {
+  border-left: 3px solid #dd0000;
+}
+
+.intel {
+  border-left: 3px solid #2209df;
+}
+
+.ambasMarcas {
+  border-left: 3px solid #515151;
 }
 /*# sourceMappingURL=style.css.map */

@@ -1,19 +1,41 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
+@import "variables";
+
+/* estilo de los elementos HTML */
 
 h1{
-    color: blue;
+    padding: 1.5rem 0;
+    font-size: 2.2rem;
+}
+
+@media screen and (min-width: 720px){
+    h1{
+        font-size: 4rem;
+    }
 }
 
 header{
     background: lightgray;
 }
 
+footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 15vh;
+    background-color: $colorFooter;
+    color: rgb(255,255,255);
+}
+
+/*Estilo banners */
 .banner{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background-size: cover;
+    padding: 1.5rem;
     width: 100%;
     h2{
         font-size: 3em;
@@ -32,13 +54,77 @@ header{
     height: 50vh;
 }
 
-footer{
-    background-color: lightskyblue;
-    height: 15vh;
+/* formas de envio */
+
+.formasEnvioContainer{
+    display: flex;
+    flex-direction: row;
+    background-color: lightgrey;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 30vh;
 }
 
-/** estilo de texto*/
+.infoContainer{
+ /*   background-color: lightgrey;*/
+}
+
+.infoItem{
+/*    border: 1px solid black;*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 1rem;
+    border-bottom: 2px solid grey;
+    img{
+        width: 8rem;
+    }
+    div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        h4{
+            font-size: 1.2rem;
+        }
+        h5{
+            font-size: 1rem;
+        }
+    }
+}
+
+
+
+/* Estilo del resumen de la compra */
+.resumenCompra{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 500px;
+    width: 100%;
+    background-color: $colorPrincipal;
+}
+
+/* estilo de texto*/
 
 .precio{
     font-size: 1.8rem;
 }
+
+/* estilo de cartas */
+
+.amd{
+    border-left: 3px solid rgb(221, 0, 0);
+}
+
+.intel{
+    border-left: 3px solid rgb(34, 9, 223);
+}
+
+.ambasMarcas{
+    border-left: 3px solid rgb(81, 81, 81);
+}
+
+
+
