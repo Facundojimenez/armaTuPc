@@ -75,7 +75,7 @@ console.log(arrNumerosDoble.toString());
 */
 
 
-//Desafio Complementario: Ordenar array de productos (con bubble sort)
+//Desafio Complementario Clase 6: Ordenar array de productos (con bubble sort)
 
 function bubbleSort(arr, funcComparacion){
     let i,
@@ -131,7 +131,7 @@ function compararProductosMarcaAsc(prod1, prod2){
 }
 
 // Llamado a las funciones, primero cargo un array con productos --> lo muestro -> Lo ordeno por marca --> lo muestro --> Lo ordeno por ID --> lo muestro
-
+/*
 let arrProductos = [new Producto(1,"Intel", "i3 10100"), new Producto(5, "AMD", "Ryzen 5 3600"), new Producto(2, "Intel", "i7 10700F"), new Producto(20, "AMD", "Ryzen 3 1200")];
 
 console.log("\n\n--------Array de productos original--------\n\n");
@@ -149,5 +149,29 @@ for(producto of arrProductos){
 bubbleSort(arrProductos, compararProductosIdAsc);
 console.log("\n\n--------Ahora lo muestro ordenado por id ASC-------\n\n");
 for(producto of arrProductos){
+    producto.mostrarConsole();
+}
+*/
+
+// Desafío obligatorio de la clase 6:
+
+
+
+let arrProductos = [new Producto(1,"Intel", "i3 10100", "4 cores", 14999, "cpu"),
+                    new Producto(5, "AMD", "Ryzen 5 3600", "6 cores", 31999, "cpu"),
+                    new Producto(2, "Intel", "i7 10700F", "8 cores", 40000, "cpu"),
+                    new Producto(20, "AMD", "Ryzen 3 1200", "4 cores", 10000, "cpu")];
+
+console.log("Mostrando array original con los productos");
+for(producto of arrProductos){
+    producto.mostrarConsole();
+ }
+
+
+
+let arrProductosPrecioMasDe30000 = arrProductos.filter((producto) => producto.precio > 30000);
+
+console.log("\n\nMostrando array con los productos que tienen un precio mayor a 30000$");
+for(producto of arrProductosPrecioMasDe30000){
     producto.mostrarConsole();
 }
