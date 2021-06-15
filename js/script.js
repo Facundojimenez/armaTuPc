@@ -1,58 +1,3 @@
-//Desafio Complementario Clase 6: Ordenar array de productos (con bubble sort)
-/*
-function bubbleSort(arr, funcComparacion){
-    let i,
-        j;
-    for(i = 0; i < arr.length - 1; i++){
-        for(j = 0; j < arr.length - 1 - i; j++){
-            if(funcComparacion(arr[j], arr[j + 1]) > 0){
-                intercambiarElemArr(arr, j, j + 1);
-            }
-        }
-    }
-}
-
-function buscarMenor(arr){
-    let menor = arr[0],
-        i;
-    for(i = 1; i < arr.length; i++){
-        if(arr[i] < menor){
-            menor = arr[i];
-        }
-    }
-    return menor;
-}
-
-function intercambiarElemArr(arr, posA, posB){
-    let aux = arr[posA];
-    arr[posA] = arr[posB];
-    arr[posB] = aux;
-}
-
-// funciones de comparacion (aunque puedo usar arrow functions)
-
-function compararEnterosAsc(a, b){
-    return a - b;
-}
-
-function compararEnterosDesc(a, b){
-    return b - a;
-}
-
-function compararProductosIdAsc(prod1, prod2){
-    return prod1.id - prod2.id;
-}
-
-function compararProductosMarcaAsc(prod1, prod2){
-    if(prod1.marca > prod2.marca){
-        return 1;
-    }
-    if(prod1.marca < prod2.marca){
-        return -1;
-    }
-    return 0;
-}*/
-
 class Producto{
     constructor(id, marca, modelo, descripcion, precio, categoria){
         this.id = id;
@@ -85,6 +30,24 @@ class Producto{
         return this.id + " " + this.marca + " " + this.modelo + " " + this.descripcion + " " + this.precio + " " + this.categoria;
     }
 }
+
+class LineaProducto{
+    constructor(id, producto, cantidad){
+        this.id = id;
+        this.producto = producto;
+        this.cantidad = cantidad;
+    }
+    mostrarConsole(){
+        console.log("id: " + this.id);
+        console.log("producto: " + this.producto.toString());
+        console.log("cantidad: " + this.cantidad);
+    }
+}
+
+// let producto1 = new Producto(1, "Intel", "i7 10700", "8 cores", 40000, "cpus");
+// let linea1 = new LineaProducto(1, producto1, 3);
+// producto1.precio = 50000;
+// linea1.mostrarConsole();
 
 
 /*El usuario ingresa el id del producto a comprar, luego ese ID se utiliza para buscar al producto en el array  obtener su info
@@ -128,4 +91,23 @@ function simularCompra(){
     alert("El importe total es: " + importeTotal);
 }
 
-simularCompra();
+// simularCompra();
+
+// Practica de clase 8: DOM
+
+
+// let listadoProductos = document.getElementById("listadoProductos");
+
+// let nuevoProducto = document.createElement("p");
+// nuevoProducto.classList.add("col", "mb-4");
+// nuevoProducto.innerHTML =   `<div class="card h-100 intel">
+//                             <img src="media/productos/procesadores/intel-i3-10th.jpg" class="card-img-top" alt="...">
+//                                 <div class="card-body">
+//                                     <h5 class="precio">$14999</h5>
+//                                     <h5 class="card-title">Intel i3 10100</h5>
+//                                     <p class="card-text">Microprocesador de 4 núcleo y 8 hilos</p>
+//                                     <button type="button" class="btn btn-primary btn-lg btn-block">Agregar al carrito</button>
+//                                 </div>
+//                             </div>`
+// listadoProductos.appendChild(nuevoProducto);    
+

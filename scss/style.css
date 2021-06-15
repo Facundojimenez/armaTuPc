@@ -10890,29 +10890,6 @@ footer {
   height: 50vh;
 }
 
-/* formas de envio */
-.formasEnvioContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  background-color: lightgrey;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: 30vh;
-}
-
-.infoContainer {
-  /*   background-color: lightgrey;*/
-}
-
 .infoItem {
   /*    border: 1px solid black;*/
   display: -webkit-box;
@@ -10959,8 +10936,19 @@ footer {
   font-size: 1rem;
 }
 
+/*Estilo de los logos*/
+.logoRedSocial img {
+  -webkit-filter: brightness(0) invert(1);
+          filter: brightness(0) invert(1);
+}
+
 /* Estilo del resumen de la compra */
 .resumenCompra {
+  width: 100%;
+  background-color: #aab8ff;
+}
+
+.productosResumen {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -10968,12 +10956,21 @@ footer {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: 500px;
-  width: 100%;
-  background-color: #aab8ff;
+}
+
+.separador {
+  border-bottom: 2px solid #555;
+  margin: 0.8rem;
+}
+
+.fotoCarrito {
+  width: 64px;
+}
+
+@media screen and (min-width: 720px) {
+  .fotoCarrito {
+    width: 128px;
+  }
 }
 
 /* estilo de texto*/
@@ -10992,5 +10989,31 @@ footer {
 
 .ambasMarcas {
   border-left: 3px solid #515151;
+}
+
+.inputCantidadContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.inputCantidadContainer label {
+  font-size: 1.4rem;
+  padding-right: 1rem;
+  font-weight: 500;
+}
+
+.inputCantidadContainer input {
+  max-width: 25%;
 }
 /*# sourceMappingURL=style.css.map */
