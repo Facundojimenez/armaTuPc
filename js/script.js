@@ -17,6 +17,27 @@ class LineaProducto{ //representa una entidad que incluye una referencia al prod
     }
 }
 
+// Practica de la clase 9: Eventos
+
+//Agregado de productos al carrito
+
+function agregarAlCarrito(evento){
+    idProductoLlamador = parseInt(evento.target.getAttribute("idproducto"));
+    cantidadUnidades = evento.target.parentNode.querySelector(".inputCantidadContainer input").value;    
+    lineaProductoEncontrada = carrito.find(lineaProd => lineaProd.idProducto == idProductoLlamador);
+
+    if(lineaProductoEncontrada === undefined){ ///si no existe el producto en el carrito lo creo, sino le actualizo la cantidad por la nueva
+        carrito.push(new LineaProducto(idProductoLlamador, cantidadUnidades));
+    }
+    else{
+        carrito[carrito.indexOf(lineaProductoEncontrada)].cantidad = cantidadUnidades;
+    }
+    console.log(evento.target);
+    evento.target.innerHTML = "Actualizar cantidad";
+    actualizarCarrito();
+}
+
+
 // Practica de clase 8: DOM
 
 let arrProductos = [
@@ -33,12 +54,18 @@ let arrProductos = [
     new Producto(12, "Gigabyte", "RX 5700 XT", "Placa de video con 8GB de VRAM GDDR6", 99999, "gpu", "media/productos/gpus/rx-5700-xt.png")
 ];
 
-
+//Creacion de articulos iterando el array de productos
 let listadoProductosRow = document.querySelector("#listadoProductos");
-console.log(listadoProductosRow);
 
 arrProductos.forEach((producto) => {
     let divCard = document.createElement("div");
+    let botonAgregar = document.createElement("button");
+    botonAgregar.setAttribute("type", "button");
+    botonAgregar.setAttribute("idproducto", producto.id);
+    botonAgregar.classList.add("btn", "btn-primary", "btn-lg", "btn-block");
+    botonAgregar.innerHTML = "Agregar al Carrito";
+    botonAgregar.addEventListener("click", agregarAlCarrito);
+
     divCard.classList.add("col", "mb-4");
     divCard.innerHTML =     `<div class="card h-100 producto">
                                 <img src="${producto.urlFoto}" class="card-img-top" alt="...">
@@ -50,9 +77,43 @@ arrProductos.forEach((producto) => {
                                         <label for="cantidad1">Cantidad</label>
                                         <input type="number" class="form-control my-2" id="cantidad1" value="1" min="1">
                                     </div>
-                                    <button id="agregarProducto" type="button" class="btn btn-primary btn-lg btn-block">Agregar al carrito</button>
                                 </div>
                             </div>`
+    divCard.querySelector(".card-body").appendChild(botonAgregar);
     listadoProductosRow.appendChild(divCard)
-    console.log(divCard);
 })
+
+
+//mostrar productos del carrito 
+let carrito = [];
+let listadoCarrito = document.getElementById("listadoCarrito");
+console.log(listadoCarrito);
+
+function actualizarCarrito(){ //vacio el contenido del carrito y lo vuelvo a cargar por completo
+    let subtotal = 0;
+    listadoCarrito.innerHTML = ""; 
+    carrito.forEach((linea) => {
+        productoAsociado = arrProductos.find(producto => producto.id === linea.idProducto);
+ //       console.log(productoAsociado);
+        elementoLista = document.createElement("li");
+        elementoLista.classList.add("media", "productoCarrito", "row","my-2");
+        elementoLista.innerHTML =  `<img class="mr-3 col-3 col-md-3" src="${productoAsociado.urlFoto}">
+                                    <div class="media-body col-6 col-md-7">
+                                        <h5 class="mt-0 mb-1">${productoAsociado.marca} ${productoAsociado.modelo}</h5>
+                                        <h6>x${linea.cantidad} unidad/es</h6>
+                                    </div>
+                                    <div class="col-3 col-md-2">
+                                        <h6 class="my-1">$${productoAsociado.precio}</h6>
+                                        <button class="btn btn-sm btn-danger" type="submit">Quitar</button>
+                                    </div>`
+        listadoCarrito.appendChild(elementoLista);
+        ///Ahora actualizo el importe del subtotal
+        subtotal += productoAsociado.precio * linea.cantidad;
+        arrayDetalles = document.querySelectorAll(".resumenDetalles .col");
+    });
+    console.log(arrayDetalles);
+    arrayDetalles[0].innerHTML = "$" + subtotal;
+    arrayDetalles[1].innerHTML = "$" + parseInt(subtotal * 0.21);
+    arrayDetalles[2].innerHTML = "$" + parseInt(subtotal * 1.21);
+
+}

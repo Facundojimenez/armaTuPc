@@ -60,35 +60,54 @@
             <div id="listadoProductos" class="row row-cols-1 row-cols-md-2 row-cols-lg-3"></div> 
         </div>
         <!-- Subtotal e importe final de la compra-->
-        <div class="container my-4 p-3 rounded resumenCompra">
-            <h3>Resumen de la compra</h3> <!-- Todavia pendiente de implementar con JS-->
-            <ul class="list-unstyled productosResumen my-3">
-                <li class="media">
-                    <img class="mr-3 fotoCarrito" src="media/productos/procesadores/intel-i3-10th.jpg">
-                    <div class="media-body">
-                        <h5 class="mt-0 mb-1">Intel i3 10100</h5>
+
+        
+        <!-- nueva implementacion del carrito -->
+        <div class="container resumenCompraContainer my-3 p-3">
+            <h3>Este es el resumen de tu compra</h3>
+            <div class="row p-3">
+                <ul class="list-unstyled col-12 col-md-8 col-lg-9" id="listadoCarrito">
+                    <h5>Todavia no agregaste productos a tu carrito</h5>
+                    <!-- <li class="media productoCarrito row my-2">
+                        <img class="mr-3 col-3 col-md-3" src="media/productos/procesadores/intel-i3-10th.jpg">
+                        <div class="media-body col-6 col-md-7">
+                            <h5 class="mt-0 mb-1">Intel i3 10100</h5>
+                            <h6>x3 unidades</h6>
+                        </div>
+                        <div class="col-3 col-md-2">
+                            <h6 class="my-1">$10000</h6>
+                            <button class="btn btn-sm btn-danger" type="submit">Quitar</button>
+                        </div>
+                    </li>
+                    <li class="media productoCarrito row my-2">
+                        <img class="mr-3 col-3 col-md-3" src="media/productos/procesadores/intel-i3-10th.jpg">
+                        <div class="media-body col-6 col-md-7">
+                            <h5 class="mt-0 mb-1">Intel i3 10100</h5>
+                            <h6>x3 unidades</h6>
+                        </div>
+                        <div class="col-3 col-md-2">
+                            <h6 class="my-1">$10000</h6>
+                            <button class="btn btn-sm btn-danger" type="submit">Quitar</button>
+                        </div>
+                    </li> -->
+                </ul>
+                <div class="resumenDetalles col">
+                    <h4>Detalles: </h4>
+                    <div class="row no-gutters my-1">
+                        <span class="col-9">Subtotal: </span>
+                        <span class="col text-right font-weight-bold">$0</span>
                     </div>
-                    <span>$10000</span>
-                </li>
-                <li class="media my-4">
-                    <img class="mr-3 fotoCarrito" src="media/productos/procesadores/ryzen-5.jpg">
-                    <div class="media-body">
-                        <h5 class="mt-0 mb-1">AMD Ryzen 5 3600</h5>
+                    <div class="row no-gutters my-1">
+                        <span class="col-9">IVA: </span>
+                        <span class="col text-right font-weight-bold">$0</span>
                     </div>
-                    <span>$16000</span>
-                </li>
-                <li class="media">
-                    <img class="mr-3 fotoCarrito" src="media/productos/mobos/amd-x570.png">
-                    <div class="media-body">
-                        <h5 class="mt-0 mb-1">Msi x570</h5>
+                    <div class="row no-gutters my-1">
+                        <span class="col-9">Total: </span>
+                        <span class="col text-right font-weight-bold">$0</span>
                     </div>
-                    <span>$25000</span>
-                </li>
-            </ul>
-            <div class="separador"></div>
-            <p>Subtotal: $100000</p>
-            <p>Costo de envío: $500</p>
-            <p>Total: $100500</p>
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Confirmar pedido</button>
+                </div>
+            </div>
         </div>
     </main>
     <footer class="container-fluid p-0  d-flex flex-column justify-content-around align-items-center">
