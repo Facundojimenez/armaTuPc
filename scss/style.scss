@@ -25,7 +25,7 @@ footer{
     justify-content: center;
     height: 15vh;
     background-color: $colorFooter;
-    color: rgb(255,255,255);
+    color: #ffffff;
 }
 
 /*Estilo banners */
@@ -55,16 +55,15 @@ footer{
 }
 
 
-
+///formas de envio y demas
 
 .infoItem{
-/*    border: 1px solid black;*/
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
     padding: 0 1rem;
-    border-bottom: 2px solid grey;
+    border-bottom: 2px solid #666;
     img{
         width: 8rem;
     }
@@ -82,32 +81,18 @@ footer{
     }
 }
 
-
-
 /*Estilo de los logos*/
 
 .logoRedSocial{
     img{
         filter: brightness(0) invert(1);
-        // padding: 0.5rem 2rem;
-        // background-color: red;
-    }
-}
-
-/* Estilo del resumen de la compra */
-
-.resumenCompra{
-    width: 100%;
-    background-color: $colorPrincipal;
-    h4{
-        font-size: 1rem;
     }
 }
 
 /*nuevo maquetado carrito*/
 
 .resumenCompraContainer{
-    background-color: lightblue;
+    background: linear-gradient(to right bottom, #b5cfff, #a3c3fe, #92b7fd, #80abfc, #6d9ffb);
 }
 
 .resumenDetalles{
@@ -116,6 +101,7 @@ footer{
     justify-content: space-evenly;
     border-top: 2px solid #000000;
     padding-top: 0.7rem;
+    max-height: 500px;
 }
 
 @media screen and (min-width: 720px){
@@ -124,44 +110,14 @@ footer{
         border-left: 2px solid #000000;
         padding-top: 0;
         margin-left: 0.4rem;
-    }
-}
-
-
-//----------------------
-
-.carritoContainer{
-    display: row;
-    flex-direction: column;
-    background-color: red;
-}
-
-.productoCarrito{
-    display: flex;
-    align-items: center;
-    img{
-        width: 64px;
-        margin-right: 1em;
-    }
-    h6{
-        color:#444;
-    }
-}
-
-@media screen and (min-width: 720px){
-    .productoCarrito{
-        img{
-            width: 256px;
+        h4{
+            font-size: 1.8rem;
+        }
+        span{
+            font-size: 1.4rem;
         }
     }
 }
-
-
-.separador{
-    border-bottom: 2px solid #555;
-    margin: 0.8rem;
-}
-
 
 /* estilo de texto*/
 
@@ -169,7 +125,7 @@ footer{
     font-size: 1.8rem;
 }
 
-/* estilo de cartas */
+/* estilo de cartas (por ahora sin usar) */
 
 .amd{
     border-left: 3px solid rgb(221, 0, 0);

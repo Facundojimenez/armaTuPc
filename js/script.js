@@ -17,29 +17,6 @@ class LineaProducto{ //representa una entidad que incluye una referencia al prod
     }
 }
 
-// Practica de la clase 9: Eventos
-
-//Agregado de productos al carrito
-
-function agregarAlCarrito(evento){
-    idProductoLlamador = parseInt(evento.target.getAttribute("idproducto"));
-    cantidadUnidades = evento.target.parentNode.querySelector(".inputCantidadContainer input").value;    
-    lineaProductoEncontrada = carrito.find(lineaProd => lineaProd.idProducto == idProductoLlamador);
-
-    if(lineaProductoEncontrada === undefined){ ///si no existe el producto en el carrito lo creo, sino le actualizo la cantidad por la nueva
-        carrito.push(new LineaProducto(idProductoLlamador, cantidadUnidades));
-    }
-    else{
-        carrito[carrito.indexOf(lineaProductoEncontrada)].cantidad = cantidadUnidades;
-    }
-    console.log(evento.target);
-    evento.target.innerHTML = "Actualizar cantidad";
-    actualizarCarrito();
-}
-
-
-// Practica de clase 8: DOM
-
 let arrProductos = [
     new Producto(1,"Intel", "i3 10100", "Microprocesador de 4 núcleo y 8 hilos", 14999, "cpu", "media/productos/procesadores/intel-i3-10th.jpg"),         
     new Producto(2, "Intel", "i5 10400", "Microprocesador de 6 núcleo y 12 hilos", 22999, "cpu", "media/productos/procesadores/intel-i5-10th.jpg"),
@@ -54,9 +31,11 @@ let arrProductos = [
     new Producto(12, "Gigabyte", "RX 5700 XT", "Placa de video con 8GB de VRAM GDDR6", 99999, "gpu", "media/productos/gpus/rx-5700-xt.png")
 ];
 
-//Creacion de articulos iterando el array de productos
 let listadoProductosRow = document.querySelector("#listadoProductos");
+let listadoCarrito = document.getElementById("listadoCarrito");
+let carrito = [];
 
+//Creacion de articulos iterando el array de productos
 arrProductos.forEach((producto) => {
     let divCard = document.createElement("div");
     let botonAgregar = document.createElement("button");
@@ -75,7 +54,7 @@ arrProductos.forEach((producto) => {
                                     <p class="card-text">${producto.descripcion}</p>
                                     <div class="inputCantidadContainer">
                                         <label for="cantidad1">Cantidad</label>
-                                        <input type="number" class="form-control my-2" id="cantidad1" value="1" min="1">
+                                        <input type="number" class="form-control my-2" value="1" min="1">
                                     </div>
                                 </div>
                             </div>`
@@ -83,35 +62,66 @@ arrProductos.forEach((producto) => {
     listadoProductosRow.appendChild(divCard)
 })
 
+//Agregado de productos al carrito (Boton agregar al carrito)
 
-//mostrar productos del carrito 
-let carrito = [];
-let listadoCarrito = document.getElementById("listadoCarrito");
-console.log(listadoCarrito);
+function agregarAlCarrito(evento){
+    let idProductoLlamador = parseInt(evento.target.getAttribute("idproducto"));
+    let cantidadUnidades = parseInt(evento.target.parentNode.querySelector(".inputCantidadContainer input").value);    
+    let lineaProductoEncontrada = carrito.find(lineaProd => lineaProd.idProducto == idProductoLlamador);
+
+    if(lineaProductoEncontrada === undefined){ ///si no existe el producto en el carrito lo creo, sino le actualizo la cantidad por la nueva
+        carrito.push(new LineaProducto(idProductoLlamador, cantidadUnidades));
+    }
+    else{
+        carrito[carrito.indexOf(lineaProductoEncontrada)].cantidad = cantidadUnidades;
+    }
+    evento.target.innerHTML = "Actualizar cantidad";
+    actualizarCarrito();
+}
+
+//Eliminacion de elemento en el carrito (botón Quitar)
+
+function eliminarDelCarrito(evento){
+    let idProductoLlamador = parseInt(evento.target.getAttribute("idproducto"));
+    let lineaProductoEncontrada = carrito.find(lineaProd => lineaProd.idProducto == idProductoLlamador);
+    let indiceLinea = carrito.indexOf(lineaProductoEncontrada);
+    carrito.splice(indiceLinea, 1);
+    actualizarCarrito();
+}
+
+//Vuelve a dibujar el carrito y a actualizar los importes totales y demás detalles.
 
 function actualizarCarrito(){ //vacio el contenido del carrito y lo vuelvo a cargar por completo
     let subtotal = 0;
     listadoCarrito.innerHTML = ""; 
     carrito.forEach((linea) => {
         productoAsociado = arrProductos.find(producto => producto.id === linea.idProducto);
- //       console.log(productoAsociado);
+        
+        let botonQuitar = document.createElement("button");
+        botonQuitar.classList.add("btn", "btn-sm", "btn-danger");
+        botonQuitar.addEventListener("click", eliminarDelCarrito);
+        botonQuitar.setAttribute("type", "button");
+        botonQuitar.setAttribute("idproducto", productoAsociado.id);
+        botonQuitar.innerText = "Quitar";
+
         elementoLista = document.createElement("li");
         elementoLista.classList.add("media", "productoCarrito", "row","my-2");
-        elementoLista.innerHTML =  `<img class="mr-3 col-3 col-md-3" src="${productoAsociado.urlFoto}">
+        elementoLista.innerHTML =  `<img class="mr-2 col-3 col-md-3" src="${productoAsociado.urlFoto}">
                                     <div class="media-body col-6 col-md-7">
                                         <h5 class="mt-0 mb-1">${productoAsociado.marca} ${productoAsociado.modelo}</h5>
                                         <h6>x${linea.cantidad} unidad/es</h6>
                                     </div>
                                     <div class="col-3 col-md-2">
                                         <h6 class="my-1">$${productoAsociado.precio}</h6>
-                                        <button class="btn btn-sm btn-danger" type="submit">Quitar</button>
                                     </div>`
+        elementoLista.querySelector(".col-3.col-md-2").appendChild(botonQuitar);
         listadoCarrito.appendChild(elementoLista);
         ///Ahora actualizo el importe del subtotal
         subtotal += productoAsociado.precio * linea.cantidad;
-        arrayDetalles = document.querySelectorAll(".resumenDetalles .col");
     });
-    console.log(arrayDetalles);
+    
+    //Actualizo el HTML de los detalles
+    arrayDetalles = document.querySelectorAll(".resumenDetalles .col");
     arrayDetalles[0].innerHTML = "$" + subtotal;
     arrayDetalles[1].innerHTML = "$" + parseInt(subtotal * 0.21);
     arrayDetalles[2].innerHTML = "$" + parseInt(subtotal * 1.21);
