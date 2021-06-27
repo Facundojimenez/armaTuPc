@@ -10831,6 +10831,10 @@ h1 {
   }
 }
 
+body {
+  background-color: #eeeeee;
+}
+
 header {
   background: lightgray;
 }
@@ -10904,7 +10908,7 @@ footer {
       -ms-flex-align: center;
           align-items: center;
   padding: 0 1rem;
-  border-bottom: 2px solid #666;
+  border-bottom: 2px solid #515151;
 }
 
 .infoItem img {
@@ -10941,10 +10945,11 @@ footer {
           filter: brightness(0) invert(1);
 }
 
-/*nuevo maquetado carrito*/
+/*Carrito de productos*/
 .resumenCompraContainer {
-  background: -webkit-gradient(linear, left top, right bottom, from(#b5cfff), color-stop(#a3c3fe), color-stop(#92b7fd), color-stop(#80abfc), to(#6d9ffb));
-  background: linear-gradient(to right bottom, #b5cfff, #a3c3fe, #92b7fd, #80abfc, #6d9ffb);
+  background-color: #ffffff;
+  -webkit-box-shadow: 1px 2px 6px #515151;
+          box-shadow: 1px 2px 6px #515151;
 }
 
 .resumenDetalles {
@@ -10968,7 +10973,6 @@ footer {
     border-top: none;
     border-left: 2px solid #000000;
     padding-top: 0;
-    margin-left: 0.4rem;
   }
   .resumenDetalles h4 {
     font-size: 1.8rem;
@@ -10978,12 +10982,26 @@ footer {
   }
 }
 
+.productoCarrito {
+  border-bottom: 1px solid #515151;
+  margin: 0 1rem;
+}
+
+.productoCarrito img {
+  background-color: #ffffff;
+}
+
 /* estilo de texto*/
 .precio {
   font-size: 1.8rem;
 }
 
-/* estilo de cartas (por ahora sin usar) */
+.numeroPedido {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+/* estilo de cartas productos */
 .amd {
   border-left: 3px solid #dd0000;
 }

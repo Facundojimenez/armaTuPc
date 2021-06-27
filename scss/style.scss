@@ -14,8 +14,12 @@ h1{
     }
 }
 
+body{
+    background-color: $colorFondo;
+}
+
 header{
-    background: lightgray;
+    background: $colorHeader;
 }
 
 footer{
@@ -25,7 +29,7 @@ footer{
     justify-content: center;
     height: 15vh;
     background-color: $colorFooter;
-    color: #ffffff;
+    color: $blanco;
 }
 
 /*Estilo banners */
@@ -50,7 +54,7 @@ footer{
     background-image: url("../media/banners/bannerBienvenida.jpeg");
     background-position: center;
     background-attachment:fixed;
-    color: #ffffff;
+    color: $blanco;
     height: 50vh;
 }
 
@@ -63,7 +67,7 @@ footer{
     justify-content: space-around;
     align-items: center;
     padding: 0 1rem;
-    border-bottom: 2px solid #666;
+    border-bottom: 2px solid $grisMedio;
     img{
         width: 8rem;
     }
@@ -89,17 +93,18 @@ footer{
     }
 }
 
-/*nuevo maquetado carrito*/
+/*Carrito de productos*/
 
 .resumenCompraContainer{
-    background: linear-gradient(to right bottom, #b5cfff, #a3c3fe, #92b7fd, #80abfc, #6d9ffb);
+    background-color: $blanco;
+    box-shadow: 1px 2px 6px $grisMedio;
 }
 
 .resumenDetalles{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    border-top: 2px solid #000000;
+    border-top: 2px solid $negro;
     padding-top: 0.7rem;
     max-height: 500px;
 }
@@ -107,9 +112,8 @@ footer{
 @media screen and (min-width: 720px){
     .resumenDetalles{
         border-top: none;
-        border-left: 2px solid #000000;
+        border-left: 2px solid $negro;
         padding-top: 0;
-        margin-left: 0.4rem;
         h4{
             font-size: 1.8rem;
         }
@@ -119,24 +123,37 @@ footer{
     }
 }
 
+.productoCarrito{
+    border-bottom: 1px solid $grisMedio;
+    margin: 0 1rem;
+    img{
+        background-color: $blanco;
+    }
+}
+
 /* estilo de texto*/
 
 .precio{
     font-size: 1.8rem;
 }
 
-/* estilo de cartas (por ahora sin usar) */
+.numeroPedido{
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+/* estilo de cartas productos */
 
 .amd{
-    border-left: 3px solid rgb(221, 0, 0);
+    border-left: 3px solid $colorAmd;
 }
 
 .intel{
-    border-left: 3px solid rgb(34, 9, 223);
+    border-left: 3px solid $colorIntel;
 }
 
 .ambasMarcas{
-    border-left: 3px solid rgb(81, 81, 81);
+    border-left: 3px solid $grisMedio;
 }
 
 .inputCantidadContainer{

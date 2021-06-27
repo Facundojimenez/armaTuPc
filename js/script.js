@@ -87,6 +87,10 @@ function eliminarDelCarrito(evento){
     let indiceLinea = carrito.indexOf(lineaProductoEncontrada);
     carrito.splice(indiceLinea, 1);
     actualizarCarrito();
+
+    ///ahora reseteo el texto de "actualizar cantidad" a "agregar al carrito"
+    const productoListado = document.querySelector(`#listadoProductos [idproducto='${idProductoLlamador}']`);
+    productoListado.innerText = "Agregar al carrito";
 }
 
 //Vuelve a dibujar el carrito y a actualizar los importes totales y demás detalles.
@@ -105,16 +109,16 @@ function actualizarCarrito(){ //vacio el contenido del carrito y lo vuelvo a car
         botonQuitar.innerText = "Quitar";
 
         elementoLista = document.createElement("li");
-        elementoLista.classList.add("media", "productoCarrito", "row","my-2");
+        elementoLista.classList.add("media", "productoCarrito", "row","my-2", "py-2");
         elementoLista.innerHTML =  `<img class="mr-2 col-3 col-md-3" src="${productoAsociado.urlFoto}">
                                     <div class="media-body col-6 col-md-7">
                                         <h5 class="mt-0 mb-1">${productoAsociado.marca} ${productoAsociado.modelo}</h5>
                                         <h6>x${linea.cantidad} unidad/es</h6>
                                     </div>
-                                    <div class="col-3 col-md-2">
+                                    <div class="col-3 col-md-2 text-right">
                                         <h6 class="my-1">$${productoAsociado.precio}</h6>
                                     </div>`
-        elementoLista.querySelector(".col-3.col-md-2").appendChild(botonQuitar);
+        elementoLista.querySelector(".col-3.col-md-2.text-right").appendChild(botonQuitar);
         listadoCarrito.appendChild(elementoLista);
         ///Ahora actualizo el importe del subtotal
         subtotal += productoAsociado.precio * linea.cantidad;
