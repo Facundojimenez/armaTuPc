@@ -17,7 +17,8 @@ class LineaProducto{ //representa una entidad que incluye una referencia al prod
     }
 }
 
-let arrProductos = [
+///Array hardcodeado que se guarda en local storage 
+let arrProductosAux = [
     new Producto(1,"Intel", "i3 10100", "Microprocesador de 4 núcleo y 8 hilos", 14999, "cpu", "media/productos/procesadores/intel-i3-10th.jpg"),         
     new Producto(2, "Intel", "i5 10400", "Microprocesador de 6 núcleo y 12 hilos", 22999, "cpu", "media/productos/procesadores/intel-i5-10th.jpg"),
     new Producto(3, "AMD", "Ryzen 5 3600", "Microprocesador de 6 núcleo y 12 hilos", 31999, "cpu", "media/productos/procesadores/ryzen-5.jpg"),      
@@ -30,6 +31,12 @@ let arrProductos = [
     new Producto(11, "Asus", "RTX 3080", "Placa de video con 12GB de VRAM GDDR6X", 125999, "gpu", "media/productos/gpus/rtx-3080.png"),
     new Producto(12, "Gigabyte", "RX 5700 XT", "Placa de video con 8GB de VRAM GDDR6", 99999, "gpu", "media/productos/gpus/rx-5700-xt.png")
 ];
+
+///Simulo que me traigo la info de una API o una BD utilizando local storage
+localStorage.setItem("productos", JSON.stringify(arrProductosAux));
+let arrProductos = JSON.parse(localStorage.getItem("productos"));
+
+///------------------
 
 let listadoProductosRow = document.querySelector("#listadoProductos");
 let listadoCarrito = document.getElementById("listadoCarrito");
