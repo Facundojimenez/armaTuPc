@@ -34,22 +34,38 @@ let arrProductosAux = [
 
 ///Simulo que me traigo la info de una API o una BD utilizando local storage
 localStorage.setItem("productos", JSON.stringify(arrProductosAux));
-let arrProductos = JSON.parse(localStorage.getItem("productos"));
-
-///------------------
+const arrProductos = JSON.parse(localStorage.getItem("productos"));
 
 let listadoProductosRow = document.querySelector("#listadoProductos");
 let listadoCarrito = document.getElementById("listadoCarrito");
-let carrito = [];
+
+///intento cargar al carrito con la info almacenada en local storage
+let carrito;
+const infoCarritoExistente = JSON.parse(localStorage.getItem("productosCarrito"));
+if(infoCarritoExistente === null){
+    carrito = []; ///Se crea un array vacio
+}
+else{
+    carrito = infoCarritoExistente; ///El carrito se carga con lo que se cargó previamente en local storage
+}
+actualizarCarrito(); ///intento dibujar el carrito
 
 //Creacion de articulos iterando el array de productos
 arrProductos.forEach((producto) => {
     let divCard = document.createElement("div");
     let botonAgregar = document.createElement("button");
+    let mensajeBoton;
+    ///en la primera carga de la pagina busco a cada producto en el carrito y cambio el mensaje del botón dependiendo de si lo encontró o no
+    if(carrito.find(lineaProd => lineaProd.idProducto == producto.id) === undefined){
+        mensajeBoton = "Agregar al carrito";
+    }
+    else{
+        mensajeBoton = "Actualizar cantidad";
+    }
     botonAgregar.setAttribute("type", "button");
     botonAgregar.setAttribute("idproducto", producto.id);
     botonAgregar.classList.add("btn", "btn-primary", "btn-lg", "btn-block");
-    botonAgregar.innerHTML = "Agregar al Carrito";
+    botonAgregar.innerText = mensajeBoton;
     botonAgregar.addEventListener("click", agregarAlCarrito);
 
     divCard.classList.add("col", "mb-4");
@@ -82,6 +98,7 @@ function agregarAlCarrito(evento){
     else{
         carrito[carrito.indexOf(lineaProductoEncontrada)].cantidad = cantidadUnidades;
     }
+    
     evento.target.innerHTML = "Actualizar cantidad";
     actualizarCarrito();
 }
@@ -104,7 +121,12 @@ function eliminarDelCarrito(evento){
 
 function actualizarCarrito(){ //vacio el contenido del carrito y lo vuelvo a cargar por completo
     let subtotal = 0;
+    
     listadoCarrito.innerHTML = ""; 
+    
+    ///actualizo la info del local storage
+    localStorage.setItem("productosCarrito", JSON.stringify(carrito));
+
     carrito.forEach((linea) => {
         productoAsociado = arrProductos.find(producto => producto.id === linea.idProducto);
         
@@ -117,7 +139,7 @@ function actualizarCarrito(){ //vacio el contenido del carrito y lo vuelvo a car
 
         elementoLista = document.createElement("li");
         elementoLista.classList.add("media", "productoCarrito", "row","my-2", "py-2");
-        elementoLista.innerHTML =  `<img class="mr-2 col-3 col-md-3" src="${productoAsociado.urlFoto}">
+        elementoLista.innerHTML =  `<img class="mr-1 col-3 col-md-3 p-0" src="${productoAsociado.urlFoto}">
                                     <div class="media-body col-6 col-md-7">
                                         <h5 class="mt-0 mb-1">${productoAsociado.marca} ${productoAsociado.modelo}</h5>
                                         <h6>x${linea.cantidad} unidad/es</h6>
@@ -130,6 +152,13 @@ function actualizarCarrito(){ //vacio el contenido del carrito y lo vuelvo a car
         ///Ahora actualizo el importe del subtotal
         subtotal += productoAsociado.precio * linea.cantidad;
     });
+
+    ///si el carrito está vacio, entonces muestro un mensaje con un h5
+    if(carrito.length === 0){
+        const mensajeCarritoVacio = document.createElement("h5");
+        mensajeCarritoVacio.innerText = "Todavia no agregaste productos a tu carrito";
+        listadoCarrito.appendChild(mensajeCarritoVacio);
+    }
     
     //Actualizo el HTML de los detalles
     arrayDetalles = document.querySelectorAll(".resumenDetalles .col");
