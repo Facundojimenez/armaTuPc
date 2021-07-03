@@ -32,12 +32,9 @@ let arrProductosAux = [
     new Producto(12, "Gigabyte", "RX 5700 XT", "Placa de video con 8GB de VRAM GDDR6", 99999, "gpu", "media/productos/gpus/rx-5700-xt.png")
 ];
 
-///Simulo que me traigo la info de una API o una BD utilizando local storage
+///Guardo el array hardcodeado con los productos en local storage para despues recuperarla (simulando traerme la info de una API o una BD) 
 localStorage.setItem("productos", JSON.stringify(arrProductosAux));
 const arrProductos = JSON.parse(localStorage.getItem("productos"));
-
-let listadoProductosRow = document.querySelector("#listadoProductos");
-let listadoCarrito = document.getElementById("listadoCarrito");
 
 ///intento cargar al carrito con la info almacenada en local storage
 let carrito;
@@ -50,24 +47,19 @@ else{
 }
 actualizarCarrito(); ///intento dibujar el carrito
 
+
 //Creacion de articulos iterando el array de productos
 arrProductos.forEach((producto) => {
-    let divCard = document.createElement("div");
-    let botonAgregar = document.createElement("button");
+    const listadoProductosRow = document.querySelector("#listadoProductos");
+    const divCard = document.createElement("div");
     let mensajeBoton;
     ///en la primera carga de la pagina busco a cada producto en el carrito y cambio el mensaje del botón dependiendo de si lo encontró o no
     if(carrito.find(lineaProd => lineaProd.idProducto == producto.id) === undefined){
         mensajeBoton = "Agregar al carrito";
     }
     else{
-        mensajeBoton = "Actualizar cantidad";
+        mensajeBoton = "Agregar más";
     }
-    botonAgregar.setAttribute("type", "button");
-    botonAgregar.setAttribute("idproducto", producto.id);
-    botonAgregar.classList.add("btn", "btn-primary", "btn-lg", "btn-block");
-    botonAgregar.innerText = mensajeBoton;
-    botonAgregar.addEventListener("click", agregarAlCarrito);
-
     divCard.classList.add("col", "mb-4");
     divCard.innerHTML =     `<div class="card h-100 producto">
                                 <img src="${producto.urlFoto}" class="card-img-top" alt="...">
@@ -79,27 +71,35 @@ arrProductos.forEach((producto) => {
                                         <label for="cantidad1">Cantidad</label>
                                         <input type="number" class="form-control my-2" value="1" min="1">
                                     </div>
+                                    <button class="btn btn-primary btn-lg btn-block" type="button" idproducto="${producto.id}">${mensajeBoton}</button>
                                 </div>
                             </div>`
-    divCard.querySelector(".card-body").appendChild(botonAgregar);
     listadoProductosRow.appendChild(divCard)
+    //agrego evento al boton de añadir producto / actualizar cantidad
+    $(`.card-body button[idproducto='${producto.id}']`).on("click", agregarAlCarrito);
 })
 
-//Agregado de productos al carrito (Boton agregar al carrito)
+//--- FUNCIONES DE CARRITO ---
 
-function agregarAlCarrito(evento){
+function agregarAlCarrito(evento) {
     let idProductoLlamador = parseInt(evento.target.getAttribute("idproducto"));
-    let cantidadUnidades = parseInt(evento.target.parentNode.querySelector(".inputCantidadContainer input").value);    
-    let lineaProductoEncontrada = carrito.find(lineaProd => lineaProd.idProducto == idProductoLlamador);
+    let cantidadUnidades = parseInt(evento.target.parentNode.querySelector(".inputCantidadContainer input").value);
 
-    if(lineaProductoEncontrada === undefined){ ///si no existe el producto en el carrito lo creo, sino le actualizo la cantidad por la nueva
+    const existe = carrito.some(producto => producto.idProducto == idProductoLlamador);
+    if (existe) {
+        const productos = carrito.map(producto => {
+            if (producto.idProducto === idProductoLlamador) {
+                producto.cantidad = producto.cantidad + cantidadUnidades;
+            }
+            return producto; // retorna el objeto que no esta aún en el carrito 
+        });
+        carrito = [...productos];
+        console.log(carrito)
+    } else {
         carrito.push(new LineaProducto(idProductoLlamador, cantidadUnidades));
+        console.log(carrito)
     }
-    else{
-        carrito[carrito.indexOf(lineaProductoEncontrada)].cantidad = cantidadUnidades;
-    }
-    
-    evento.target.innerHTML = "Actualizar cantidad";
+    evento.target.innerHTML = "Agregar más";
     actualizarCarrito();
 }
 
@@ -119,9 +119,10 @@ function eliminarDelCarrito(evento){
 
 //Vuelve a dibujar el carrito y a actualizar los importes totales y demás detalles.
 
-function actualizarCarrito(){ //vacio el contenido del carrito y lo vuelvo a cargar por completo
+function actualizarCarrito(){
     let subtotal = 0;
-    
+    const listadoCarrito = document.getElementById("listadoCarrito");
+
     listadoCarrito.innerHTML = ""; 
     
     ///actualizo la info del local storage
@@ -129,14 +130,6 @@ function actualizarCarrito(){ //vacio el contenido del carrito y lo vuelvo a car
 
     carrito.forEach((linea) => {
         productoAsociado = arrProductos.find(producto => producto.id === linea.idProducto);
-        
-        let botonQuitar = document.createElement("button");
-        botonQuitar.classList.add("btn", "btn-sm", "btn-danger");
-        botonQuitar.addEventListener("click", eliminarDelCarrito);
-        botonQuitar.setAttribute("type", "button");
-        botonQuitar.setAttribute("idproducto", productoAsociado.id);
-        botonQuitar.innerText = "Quitar";
-
         elementoLista = document.createElement("li");
         elementoLista.classList.add("media", "productoCarrito", "row","my-2", "py-2");
         elementoLista.innerHTML =  `<img class="mr-1 col-3 col-md-3 p-0" src="${productoAsociado.urlFoto}">
@@ -146,10 +139,11 @@ function actualizarCarrito(){ //vacio el contenido del carrito y lo vuelvo a car
                                     </div>
                                     <div class="col-3 col-md-2 text-right">
                                         <h6 class="my-1">$${productoAsociado.precio}</h6>
+                                        <button class="btn btn-sm btn-danger" type="button" idproducto="${productoAsociado.id}">Quitar</button>
                                     </div>`
-        elementoLista.querySelector(".col-3.col-md-2.text-right").appendChild(botonQuitar);
         listadoCarrito.appendChild(elementoLista);
-        ///Ahora actualizo el importe del subtotal
+        ///agrego evento al boton de quitar
+        $(`.productoCarrito button[idproducto='${productoAsociado.id}']`).on("click", eliminarDelCarrito);
         subtotal += productoAsociado.precio * linea.cantidad;
     });
 
@@ -165,5 +159,4 @@ function actualizarCarrito(){ //vacio el contenido del carrito y lo vuelvo a car
     arrayDetalles[0].innerHTML = "$" + subtotal;
     arrayDetalles[1].innerHTML = "$" + parseInt(subtotal * 0.21);
     arrayDetalles[2].innerHTML = "$" + parseInt(subtotal * 1.21);
-
 }
