@@ -18,7 +18,7 @@ class LineaProducto{ //representa una entidad que incluye una referencia al prod
 }
 
 ///Array hardcodeado que se guarda en local storage 
-let arrProductosAux = [
+const arrProductosAux = [
     new Producto(1,"Intel", "i3 10100", "Microprocesador de 4 núcleo y 8 hilos", 14999, "cpu", "media/productos/procesadores/intel-i3-10th.jpg"),         
     new Producto(2, "Intel", "i5 10400", "Microprocesador de 6 núcleo y 12 hilos", 22999, "cpu", "media/productos/procesadores/intel-i5-10th.jpg"),
     new Producto(3, "AMD", "Ryzen 5 3600", "Microprocesador de 6 núcleo y 12 hilos", 31999, "cpu", "media/productos/procesadores/ryzen-5.jpg"),      
@@ -48,9 +48,14 @@ else{
 actualizarCarrito(); ///intento dibujar el carrito
 
 
+///animación para agrandar y achicar la letra en el botón de "confirmar pedido"
+$(".resumenDetalles button").on("click", () => {
+    $(".resumenDetalles button").animate({fontSize: "1.3rem"})
+                                .animate({fontSize: "1.2rem"});
+});
+
 //Creacion de articulos iterando el array de productos
 arrProductos.forEach((producto) => {
-    const listadoProductosRow = document.querySelector("#listadoProductos");
     const divCard = document.createElement("div");
     let mensajeBoton;
     ///en la primera carga de la pagina busco a cada producto en el carrito y cambio el mensaje del botón dependiendo de si lo encontró o no
@@ -73,8 +78,8 @@ arrProductos.forEach((producto) => {
                                     </div>
                                     <button class="btn btn-primary btn-lg btn-block" type="button" idproducto="${producto.id}">${mensajeBoton}</button>
                                 </div>
-                            </div>`
-    listadoProductosRow.appendChild(divCard)
+                            </div>`;
+    $("#listadoProductos").append(divCard);
     //agrego evento al boton de añadir producto / actualizar cantidad
     $(`.card-body button[idproducto='${producto.id}']`).on("click", agregarAlCarrito);
 })
@@ -82,8 +87,8 @@ arrProductos.forEach((producto) => {
 //--- FUNCIONES DE CARRITO ---
 
 function agregarAlCarrito(evento) {
-    let idProductoLlamador = parseInt(evento.target.getAttribute("idproducto"));
-    let cantidadUnidades = parseInt(evento.target.parentNode.querySelector(".inputCantidadContainer input").value);
+    const idProductoLlamador = parseInt(evento.target.getAttribute("idproducto"));
+    const cantidadUnidades = parseInt(evento.target.parentNode.querySelector(".inputCantidadContainer input").value);
 
     const existe = carrito.some(producto => producto.idProducto == idProductoLlamador);
     if (existe) {
@@ -106,15 +111,14 @@ function agregarAlCarrito(evento) {
 //Eliminacion de elemento en el carrito (botón Quitar)
 
 function eliminarDelCarrito(evento){
-    let idProductoLlamador = parseInt(evento.target.getAttribute("idproducto"));
-    let lineaProductoEncontrada = carrito.find(lineaProd => lineaProd.idProducto == idProductoLlamador);
-    let indiceLinea = carrito.indexOf(lineaProductoEncontrada);
+    const idProductoLlamador = parseInt(evento.target.getAttribute("idproducto"));
+    const lineaProductoEncontrada = carrito.find(lineaProd => lineaProd.idProducto == idProductoLlamador);
+    const indiceLinea = carrito.indexOf(lineaProductoEncontrada);
     carrito.splice(indiceLinea, 1);
     actualizarCarrito();
 
     ///ahora reseteo el texto de "actualizar cantidad" a "agregar al carrito"
-    const productoListado = document.querySelector(`#listadoProductos [idproducto='${idProductoLlamador}']`);
-    productoListado.innerText = "Agregar al carrito";
+    $(`#listadoProductos [idproducto='${idProductoLlamador}']`).text("Agregar al carrito");
 }
 
 //Vuelve a dibujar el carrito y a actualizar los importes totales y demás detalles.
@@ -122,8 +126,8 @@ function eliminarDelCarrito(evento){
 function actualizarCarrito(){
     let subtotal = 0;
     const listadoCarrito = document.getElementById("listadoCarrito");
-
     listadoCarrito.innerHTML = ""; 
+
     
     ///actualizo la info del local storage
     localStorage.setItem("productosCarrito", JSON.stringify(carrito));

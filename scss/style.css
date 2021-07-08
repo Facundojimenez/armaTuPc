@@ -10948,8 +10948,13 @@ footer {
 /*Carrito de productos*/
 .resumenCompraContainer {
   background-color: #ffffff;
-  -webkit-box-shadow: 1px 2px 6px #515151;
-          box-shadow: 1px 2px 6px #515151;
+}
+
+@media screen and (min-width: 720px) {
+  .resumenCompraContainer {
+    -webkit-box-shadow: 1px 2px 6px #515151;
+            box-shadow: 1px 2px 6px #515151;
+  }
 }
 
 .resumenDetalles {
@@ -10963,9 +10968,19 @@ footer {
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
-  border-top: 2px solid #000000;
-  padding-top: 0.7rem;
-  max-height: 500px;
+  height: 300px;
+}
+
+.resumenDetalles h4 {
+  font-size: 1.8rem;
+}
+
+.resumenDetalles span {
+  font-size: 1.2rem;
+}
+
+.resumenDetalles button {
+  min-height: 50px;
 }
 
 @media screen and (min-width: 720px) {
