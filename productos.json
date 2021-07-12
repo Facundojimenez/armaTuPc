@@ -1,0 +1,101 @@
+[
+	{
+		"id":1,
+		"marca":"Intel",
+		"modelo":"i3 10100",
+		"descripcion":"Microprocesador de 4 núcleo y 8 hilos",
+		"precio":14999,
+		"categoria":"cpu",
+		"urlFoto":"media/productos/procesadores/intel-i3-10th.jpg"
+	},
+	{
+		"id":2,
+		"marca":"Intel",
+		"modelo":"i5 10400",
+		"descripcion":"Microprocesador de 6 núcleo y 12 hilos",
+		"precio":22999,
+		"categoria":"cpu",
+		"urlFoto":"media/productos/procesadores/intel-i5-10th.jpg"
+	},
+	{
+		"id":3,
+		"marca":"AMD",
+		"modelo":"Ryzen 5 3600",
+		"descripcion":"Microprocesador de 6 núcleo y 12 hilos",
+		"precio":31999,
+		"categoria":"cpu",
+		"urlFoto":"media/productos/procesadores/ryzen-5.jpg"
+	},
+	{
+		"id":4,
+		"marca":"AMD",
+		"modelo":"Ryzen 7 3700",
+		"descripcion":"Microprocesador de 8 núcleo y 12 hilos",
+		"precio":43999,
+		"categoria":"cpu",
+		"urlFoto":"media/productos/procesadores/ryzen-7.jpg"
+	},
+	{
+		"id":5,
+		"marca":"MSI",
+		"modelo":"A320m",
+		"descripcion":"Motherboard compatible con los procesadores de AMD de 1era, 2da y 3ra generación",
+		"precio":8499,
+		"categoria":"mobo",
+		"urlFoto":"media/productos/mobos/amd-a320.jpg"
+	},
+	{
+		"id":6,
+		"marca":"MSI",
+		"modelo":"X570",
+		"descripcion":"Motherboard compatible con los procesadores de AMD de 2da, 3ra y 4ta generación",
+		"precio":25399,
+		"categoria":"mobo",
+		"urlFoto":"media/productos/mobos/amd-x570.png"
+	},
+	{
+		"id":7,
+		"marca":"Asus",
+		"modelo":"H410m",
+		"descripcion":"Motherboard compatible con los procesadores de Intel de 10va y 11va generación",
+		"precio":7999,
+		"categoria":"mobo",
+		"urlFoto":"media/productos/mobos/intel-h410.jpg"
+	},
+	{
+		"id":8,
+		"marca":"Gigabyte",
+		"modelo":"b460m",
+		"descripcion":"Motherboard compatible con los procesadores de Intel de 10va y 11va generación",
+		"precio":14999,
+		"categoria":"mobo",
+		"urlFoto":"media/productos/mobos/intel-b460.jpg"
+	},
+	{
+		"id":10,
+		"marca":"Gigabyte",
+		"modelo":"RTX 2060",
+		"descripcion":"Placa de video con 6GB de VRAM GDDR6",
+		"precio":39999,
+		"categoria":"gpu",
+		"urlFoto":"media/productos/gpus/rtx-2060.jpg"
+	},
+	{
+		"id":11,
+		"marca":"Asus",
+		"modelo":"RTX 3080",
+		"descripcion":"Placa de video con 12GB de VRAM GDDR6X",
+		"precio":125999,
+		"categoria":"gpu",
+		"urlFoto":"media/productos/gpus/rtx-3080.png"
+	},
+	{
+		"id":12,
+		"marca":"Gigabyte",
+		"modelo":"RX 5700 XT",
+		"descripcion":"Placa de video con 8GB de VRAM GDDR6",
+		"precio":99999,
+		"categoria":"gpu",
+		"urlFoto":"media/productos/gpus/rx-5700-xt.png"
+	}
+]

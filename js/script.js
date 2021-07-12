@@ -1,3 +1,4 @@
+///Definiciones de clases
 class Producto{
     constructor(id, marca, modelo, descripcion, precio, categoria, urlFoto){
         this.id = id;
@@ -17,72 +18,41 @@ class LineaProducto{ //representa una entidad que incluye una referencia al prod
     }
 }
 
-///Array hardcodeado que se guarda en local storage 
-const arrProductosAux = [
-    new Producto(1,"Intel", "i3 10100", "Microprocesador de 4 núcleo y 8 hilos", 14999, "cpu", "media/productos/procesadores/intel-i3-10th.jpg"),         
-    new Producto(2, "Intel", "i5 10400", "Microprocesador de 6 núcleo y 12 hilos", 22999, "cpu", "media/productos/procesadores/intel-i5-10th.jpg"),
-    new Producto(3, "AMD", "Ryzen 5 3600", "Microprocesador de 6 núcleo y 12 hilos", 31999, "cpu", "media/productos/procesadores/ryzen-5.jpg"),      
-    new Producto(4, "AMD", "Ryzen 7 3700", "Microprocesador de 8 núcleo y 12 hilos", 43999, "cpu", "media/productos/procesadores/ryzen-7.jpg"),      
-    new Producto(5, "MSI", "A320m", "Motherboard compatible con los procesadores de AMD de 1era, 2da y 3ra generación", 8499, "mobo", "media/productos/mobos/amd-a320.jpg"),
-    new Producto(6, "MSI", "X570", "Motherboard compatible con los procesadores de AMD de 2da, 3ra y 4ta generación", 25399, "mobo", "media/productos/mobos/amd-x570.png"),
-    new Producto(7, "Asus", "H410m", "Motherboard compatible con los procesadores de Intel de 10va y 11va generación", 7999, "mobo", "media/productos/mobos/intel-h410.jpg"),
-    new Producto(8, "Gigabyte", "b460m", "Motherboard compatible con los procesadores de Intel de 10va y 11va generación", 14999, "mobo", "media/productos/mobos/intel-b460.jpg"),
-    new Producto(10, "Gigabyte", "RTX 2060", "Placa de video con 6GB de VRAM GDDR6", 39999, "gpu", "media/productos/gpus/rtx-2060.jpg"),
-    new Producto(11, "Asus", "RTX 3080", "Placa de video con 12GB de VRAM GDDR6X", 125999, "gpu", "media/productos/gpus/rtx-3080.png"),
-    new Producto(12, "Gigabyte", "RX 5700 XT", "Placa de video con 8GB de VRAM GDDR6", 99999, "gpu", "media/productos/gpus/rx-5700-xt.png")
-];
-
-///Guardo el array hardcodeado con los productos en local storage para despues recuperarla (simulando traerme la info de una API o una BD) 
-localStorage.setItem("productos", JSON.stringify(arrProductosAux));
-const arrProductos = JSON.parse(localStorage.getItem("productos"));
-
-///intento cargar al carrito con la info almacenada en local storage
-let carrito;
-const infoCarritoExistente = JSON.parse(localStorage.getItem("productosCarrito"));
-if(infoCarritoExistente === null){
-    carrito = []; ///Se crea un array vacio
-}
-else{
-    carrito = infoCarritoExistente; ///El carrito se carga con lo que se cargó previamente en local storage
-}
-actualizarCarrito(); ///intento dibujar el carrito
-
-
-///animación para agrandar y achicar la letra en el botón de "confirmar pedido"
-$(".resumenDetalles button").on("click", () => {
-    $(".resumenDetalles button").animate({fontSize: "1.3rem"})
-                                .animate({fontSize: "1.2rem"});
-});
-
-//Creacion de articulos iterando el array de productos
-arrProductos.forEach((producto) => {
-    const divCard = document.createElement("div");
-    let mensajeBoton;
-    ///en la primera carga de la pagina busco a cada producto en el carrito y cambio el mensaje del botón dependiendo de si lo encontró o no
-    if(carrito.find(lineaProd => lineaProd.idProducto == producto.id) === undefined){
-        mensajeBoton = "Agregar al carrito";
-    }
-    else{
-        mensajeBoton = "Agregar más";
-    }
-    divCard.classList.add("col", "mb-4");
-    divCard.innerHTML =     `<div class="card h-100 producto">
-                                <img src="${producto.urlFoto}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="precio">$${producto.precio}</h5>
-                                    <h5 class="card-title">${producto.marca} ${producto.modelo}</h5>
-                                    <p class="card-text">${producto.descripcion}</p>
-                                    <div class="inputCantidadContainer">
-                                        <label for="cantidad1">Cantidad</label>
-                                        <input type="number" class="form-control my-2" value="1" min="1">
+///Busca los productos desde un JSON y luego los muestra en pantalla. Tambien dibuja el carrito
+async function getProductos(){
+    arrProductos = await (await fetch("../productos.json")).json();
+    
+    //Creacion de articulos iterando el array de productos
+    arrProductos.forEach((producto) => {
+        const divCard = document.createElement("div");
+        let mensajeBoton;
+        ///en la primera carga de la pagina busco a cada producto en el carrito y cambio el mensaje del botón dependiendo de si lo encontró o no
+        if(carrito.find(lineaProd => lineaProd.idProducto == producto.id) === undefined){
+            mensajeBoton = "Agregar al carrito";
+        }
+        else{
+            mensajeBoton = "Agregar más";
+        }
+        divCard.classList.add("col", "mb-4");
+        divCard.innerHTML =     `<div class="card h-100 producto">
+                                    <img src="${producto.urlFoto}" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="precio">$${producto.precio}</h5>
+                                        <h5 class="card-title">${producto.marca} ${producto.modelo}</h5>
+                                        <p class="card-text">${producto.descripcion}</p>
+                                        <div class="inputCantidadContainer">
+                                            <label for="cantidad1">Cantidad</label>
+                                            <input type="number" class="form-control my-2" value="1" min="1">
+                                        </div>
+                                        <button class="btn btn-primary btn-lg btn-block" type="button" idproducto="${producto.id}">${mensajeBoton}</button>
                                     </div>
-                                    <button class="btn btn-primary btn-lg btn-block" type="button" idproducto="${producto.id}">${mensajeBoton}</button>
-                                </div>
-                            </div>`;
-    $("#listadoProductos").append(divCard);
-    //agrego evento al boton de añadir producto / actualizar cantidad
-    $(`.card-body button[idproducto='${producto.id}']`).on("click", agregarAlCarrito);
-})
+                                </div>`;
+        $("#listadoProductos").append(divCard);
+        //agrego evento al boton de añadir producto / actualizar cantidad
+        $(`.card-body button[idproducto='${producto.id}']`).on("click", agregarAlCarrito);
+    })
+    actualizarCarrito();
+}
 
 //--- FUNCIONES DE CARRITO ---
 
@@ -164,3 +134,15 @@ function actualizarCarrito(){
     arrayDetalles[1].innerHTML = "$" + parseInt(subtotal * 0.21);
     arrayDetalles[2].innerHTML = "$" + parseInt(subtotal * 1.21);
 }
+
+let arrProductos = getProductos();
+
+///Cargo el carrito con la info en local storage
+const infoCarritoExistente = JSON.parse(localStorage.getItem("productosCarrito"));
+let carrito = infoCarritoExistente;
+
+///animación para agrandar y achicar la letra en el botón de "confirmar pedido"
+$(".resumenDetalles button").on("click", () => {
+    $(".resumenDetalles button").animate({fontSize: "1.3rem"})
+                                .animate({fontSize: "1.2rem"});
+});
