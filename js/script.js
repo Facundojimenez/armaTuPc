@@ -21,7 +21,7 @@ class LineaProducto{ //representa una entidad que incluye una referencia al prod
 ///Busca los productos desde un JSON y luego los muestra en pantalla. Tambien dibuja el carrito
 async function getProductos(){
     // arrProductos = await (await fetch("../productos.json")).json(); /// para trabajar localmente
-    arrProductos = await (await fetch("https://facundojimenez.github.io/productos.json")).json();
+    arrProductos = await (await fetch("https://raw.githubusercontent.com/Facundojimenez/armaTuPc/main/productos.json")).json();
     
     //Creacion de articulos iterando el array de productos
     arrProductos.forEach((producto) => {
@@ -136,14 +136,17 @@ function actualizarCarrito(){
     arrayDetalles[2].innerHTML = "$" + parseInt(subtotal * 1.21);
 }
 
-let arrProductos = getProductos();
-
 ///Cargo el carrito con la info en local storage
 const infoCarritoExistente = JSON.parse(localStorage.getItem("productosCarrito"));
 let carrito = infoCarritoExistente;
+if(infoCarritoExistente == null){
+    carrito = [];
+}
 
 ///animación para agrandar y achicar la letra en el botón de "confirmar pedido"
 $(".resumenDetalles button").on("click", () => {
     $(".resumenDetalles button").animate({fontSize: "1.3rem"})
                                 .animate({fontSize: "1.2rem"});
 });
+
+let arrProductos = getProductos();
