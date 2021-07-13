@@ -20,7 +20,8 @@ class LineaProducto{ //representa una entidad que incluye una referencia al prod
 
 ///Busca los productos desde un JSON y luego los muestra en pantalla. Tambien dibuja el carrito
 async function getProductos(){
-    arrProductos = await (await fetch("../productos.json")).json();
+    // arrProductos = await (await fetch("../productos.json")).json(); /// para trabajar localmente
+    arrProductos = await (await fetch("https://facundojimenez.github.io/productos.json")).json();
     
     //Creacion de articulos iterando el array de productos
     arrProductos.forEach((producto) => {
