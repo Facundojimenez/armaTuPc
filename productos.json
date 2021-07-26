@@ -87,7 +87,7 @@
 		"descripcion":"Placa de video con 12GB de VRAM GDDR6X",
 		"precio":125999,
 		"categoria":"gpu",
-		"urlFoto":"media/productos/gpus/rtx-3080.png"
+		"urlFoto":"media/productos/gpus/rtx-3080.jpg"
 	},
 	{
 		"id":12,
@@ -96,6 +96,6 @@
 		"descripcion":"Placa de video con 8GB de VRAM GDDR6",
 		"precio":99999,
 		"categoria":"gpu",
-		"urlFoto":"media/productos/gpus/rx-5700-xt.png"
+		"urlFoto":"media/productos/gpus/rx-5700-xt.jpg"
 	}
 ]

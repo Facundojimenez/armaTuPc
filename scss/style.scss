@@ -45,13 +45,15 @@ footer{
         font-size: 3em;
     }
     h4{
+        display: none;
+        text-align: center;
         font-size: 1.3em;
     }
 }
 
 .bannerBienvenida{
     @extend .banner;
-    background-image: url("../media/banners/bannerBienvenida.jpeg");
+    background-image: url("../media/banners/banner.jpg");
     background-position: center;
     background-attachment:fixed;
     color: $blanco;
