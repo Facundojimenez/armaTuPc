@@ -20,7 +20,6 @@ class LineaProducto{ //representa una entidad que incluye una referencia al prod
 
 ///Busca los productos desde un JSON y luego los muestra en pantalla. Tambien dibuja el carrito
 async function getProductos(){
-    // arrProductos = await (await fetch("../productos.json")).json(); /// para trabajar localmente
     arrProductos = await (await fetch("https://raw.githubusercontent.com/Facundojimenez/armaTuPc/main/productos.json")).json();
     
     //Creacion de articulos iterando el array de productos
@@ -70,10 +69,8 @@ function agregarAlCarrito(evento) {
             return producto; // retorna el objeto que no esta aún en el carrito 
         });
         carrito = [...productos];
-        console.log(carrito)
     } else {
         carrito.push(new LineaProducto(idProductoLlamador, cantidadUnidades));
-        console.log(carrito)
     }
     evento.target.innerHTML = "Agregar más";
     actualizarCarrito();
@@ -96,10 +93,8 @@ function eliminarDelCarrito(evento){
 
 function actualizarCarrito(){
     let subtotal = 0;
-    const listadoCarrito = document.getElementById("listadoCarrito");
-    listadoCarrito.innerHTML = ""; 
+    $("#listadoCarrito").empty();
 
-    
     ///actualizo la info del local storage
     localStorage.setItem("productosCarrito", JSON.stringify(carrito));
 
@@ -116,7 +111,7 @@ function actualizarCarrito(){
                                         <h6 class="my-1">$${productoAsociado.precio}</h6>
                                         <button class="btn btn-sm btn-danger" type="button" idproducto="${productoAsociado.id}">Quitar</button>
                                     </div>`
-        listadoCarrito.appendChild(elementoLista);
+        $("#listadoCarrito").append(elementoLista);
         ///agrego evento al boton de quitar
         $(`.productoCarrito button[idproducto='${productoAsociado.id}']`).on("click", eliminarDelCarrito);
         subtotal += productoAsociado.precio * linea.cantidad;
@@ -124,9 +119,7 @@ function actualizarCarrito(){
 
     ///si el carrito está vacio, entonces muestro un mensaje con un h5
     if(carrito.length === 0){
-        const mensajeCarritoVacio = document.createElement("h5");
-        mensajeCarritoVacio.innerText = "Todavia no agregaste productos a tu carrito";
-        listadoCarrito.appendChild(mensajeCarritoVacio);
+        $("#listadoCarrito").append(`<h5>Todavia no agregaste productos a tu carrito</h5>`)
     }
     
     //Actualizo el HTML de los detalles
@@ -142,6 +135,10 @@ let carrito = infoCarritoExistente;
 if(infoCarritoExistente == null){
     carrito = [];
 }
+carrito = JSON.parse(localStorage.getItem("productosCarrito"));
+ 
+let arrProductos = getProductos();
+
 
 ///animación para agrandar y achicar la letra en el botón de "confirmar pedido"
 $(".resumenDetalles button").on("click", () => {
@@ -149,4 +146,7 @@ $(".resumenDetalles button").on("click", () => {
                                 .animate({fontSize: "1.2rem"});
 });
 
-let arrProductos = getProductos();
+$(() => {
+    $(".bannerBienvenida h4").slideDown(500);
+})
+

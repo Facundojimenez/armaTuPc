@@ -9712,11 +9712,13 @@ footer {
 }
 
 .banner h4, .bannerBienvenida h4 {
+  display: none;
+  text-align: center;
   font-size: 1.3em;
 }
 
 .bannerBienvenida {
-  background-image: url("../media/banners/bannerBienvenida.jpeg");
+  background-image: url("../media/banners/banner.jpg");
   background-position: center;
   background-attachment: fixed;
   color: #ffffff;
