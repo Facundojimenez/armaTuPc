@@ -135,7 +135,9 @@ let carrito = infoCarritoExistente;
 if(infoCarritoExistente == null){
     carrito = [];
 }
-carrito = JSON.parse(localStorage.getItem("productosCarrito"));
+else{
+    carrito = JSON.parse(localStorage.getItem("productosCarrito"));
+}
  
 let arrProductos = getProductos();
 
